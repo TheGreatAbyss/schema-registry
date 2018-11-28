@@ -254,11 +254,16 @@ public class AvroData {
     TO_AVRO_LOGICAL_CONVERTERS.put(Decimal.LOGICAL_NAME, new LogicalTypeConverter() {
       @Override
       public Object convert(Schema schema, Object value) {
-        if (!(value instanceof BigDecimal)) {
-          throw new DataException(
-              "Invalid type for Decimal, expected BigDecimal but was " + value.getClass());
+        if (value instanceof byte[]) {
+          return (byte[]) value;
         }
-        return Decimal.fromLogical(schema, (BigDecimal) value);
+        else if (value instanceof BigDecimal) {
+          return Decimal.fromLogical(schema, (BigDecimal) value);
+        }
+        else {
+          throw new DataException(
+              "Invalid type for Decimal, expected BigDecimal or Byte[] but was " + value.getClass());
+        }
       }
     });
 
