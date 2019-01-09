@@ -664,7 +664,7 @@ public class AvroData {
   }
 
   private static Object maybeAddContainer(org.apache.avro.Schema avroSchema, Object value,
-      boolean wrap) {
+                                          boolean wrap) {
     return wrap ? new NonRecordContainer(avroSchema, value) : value;
   }
 
