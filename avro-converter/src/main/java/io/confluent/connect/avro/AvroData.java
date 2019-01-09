@@ -256,13 +256,12 @@ public class AvroData {
       public Object convert(Schema schema, Object value) {
         if (value instanceof byte[]) {
           return (byte[]) value;
-        }
-        else if (value instanceof BigDecimal) {
+        } else if (value instanceof BigDecimal) {
           return Decimal.fromLogical(schema, (BigDecimal) value);
-        }
-        else {
+        } else {
           throw new DataException(
-              "Invalid type for Decimal, expected BigDecimal or Byte[] but was " + value.getClass());
+              "Invalid type for Decimal, expected BigDecimal or Byte[] but was "
+                  + value.getClass());
         }
       }
     });
@@ -665,7 +664,7 @@ public class AvroData {
   }
 
   private static Object maybeAddContainer(org.apache.avro.Schema avroSchema, Object value,
-                                          boolean wrap) {
+      boolean wrap) {
     return wrap ? new NonRecordContainer(avroSchema, value) : value;
   }
 
